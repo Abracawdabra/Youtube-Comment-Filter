@@ -11,6 +11,8 @@
 
     var DefaultSettings = {
         HIDE_FILTERED_COMMENTS: true,
+        COMMENT_FILTER_ENABLED: true,
+        WORD_CENSOR_ENABLED: false,
 
         COMMENT_FILTER: [
             "*sent me here*"
@@ -38,12 +40,28 @@
                     ge("chk-hide-filtered-comments").checked = items.hideFilteredComments;
                 }
 
+                if (items.commentFilterEnabled === undefined) {
+                    chrome.storage.local.set({ commentFilterEnabled: DefaultSettings.COMMENT_FILTER_ENABLED }, onSaveSetting);
+                    ge("chk-enable-comment-filter").checked = DefaultSettings.COMMENT_FILTER_ENABLED;
+                }
+                else {
+                    ge("chk-enable-comment-filter").checked = items.commentFilterEnabled;
+                }
+
                 if (items.commentFilter === undefined) {
                     chrome.storage.local.set({ commentFilter: DefaultSettings.COMMENT_FILTER }, onSaveSetting);
                     ge("txt-comment-filter").value = DefaultSettings.COMMENT_FILTER;
                 }
                 else {
                     ge("txt-comment-filter").value = items.commentFilter;
+                }
+
+                if (items.wordCensorEnabled === undefined) {
+                    chrome.storage.local.set({ wordCensorEnabled: DefaultSettings.WORD_CENSOR_ENABLED }, onSaveSetting);
+                    ge("chk-enable-word-censor").checked = DefaultSettings.WORD_CENSOR_ENABLED;
+                }
+                else {
+                    ge("chk-enable-word-censor").checked = items.wordCensorEnabled;
                 }
 
                 if (items.wordCensor === undefined) {
@@ -57,7 +75,9 @@
         });
 
         ge("chk-hide-filtered-comments").addEventListener("change", onSettingChange);
+        ge("chk-enable-comment-filter").addEventListener("change", onSettingChange);
         ge("txt-comment-filter").addEventListener("input", onSettingChange);
+        ge("chk-enable-word-censor").addEventListener("change", onSettingChange);
         ge("txt-word-censor").addEventListener("input", onSettingChange);
         ge("btn-reset-comment-filter").addEventListener("click", onResetCommentFilter);
         ge("btn-reset-word-censor").addEventListener("click", onResetWordCensor);

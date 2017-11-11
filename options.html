@@ -13,13 +13,15 @@
             </div>
 
             <div id="comment-filter-controls" class="filter-controls">
-                <label for="txt-comment-filter">Comment Filter</label>
+                <input id="chk-enable-comment-filter" type="checkbox" data-setting="commentFilterEnabled">
+                <label for="chk-enable-comment-filter">Enable comment filter</label>
                 <textarea id="txt-comment-filter" data-setting="commentFilter" cols="45" rows="8"></textarea>
                 <button id="btn-reset-comment-filter">Reset</button>
             </div>
 
             <div class="filter-controls">
-                <label for="txt-word-censor">Word Censor</label>
+                <input id="chk-enable-word-censor" type="checkbox" data-setting="wordCensorEnabled">
+                <label for="chk-enable-word-censor">Enable word censor</label>
                 <textarea id="txt-word-censor" data-setting="wordCensor" cols="45" rows="8"></textarea>
                 <button id="btn-reset-word-censor">Reset</button>
             </div>

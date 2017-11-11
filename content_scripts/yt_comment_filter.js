@@ -36,6 +36,12 @@ var gDiscussionObserver = void 0;
 var gDiscussionElement = void 0;
 var gDiscussionsLoaded = false;
 
+var gCommentFilterEnabled = void 0;
+var gWordCensorEnabled = void 0;
+
+var gCommentFilterRegExps = [];
+var gCensoredWords = [];
+
 var gCurrentCommentIndex = 0;
 
 function init() {
@@ -60,10 +66,73 @@ function init() {
 
             gDiscussionElement = discussion_element;
 
+            setupCommentFilter();
+            setupWordCensor();
+
             gDiscussionObserver = new MutationObserver(discussionObserverCallback);
             gDiscussionObserver.observe(discussion_element, { childList: true });
         }
     }
+}
+
+function setupCommentFilter() {
+    chrome.storage.local.get(["commentFilterEnabled", "commentFilter"], function(items) {
+        var error = chrome.runtime.lastError;
+        if (error) {
+            console.log("Error:", error);
+        }
+        else {
+            gCommentFilterEnabled = items.commentFilterEnabled;
+            if (gCommentFilterEnabled) {
+                gCommentFilterRegExps = [];
+                var filters = items.commentFilter.split("\n");
+                for (var i=0, f=void 0, ss_index=void 0,regex_str=void 0; i<filters.length; ++i) {
+                    f = filters[i];
+                    if (f.length > 2 && f[0] === "/" && f[f.length - 1] === "/") {
+                        // Regular expression
+                        gCommentFilterRegExps.push(new RegExp(f.substring(1, f.length - 1), "i"));
+                    }
+                    else {
+                        // Literal with wildcards
+                        regex_str = "";
+                        ss_index = f.indexOf("*");
+                        while (ss_index > -1) {
+                            if (!(ss_index > 0 && f[ss_index - 1] === "\\")) {
+                                regex_str += f.substring(0, ss_index) + ".*";
+                            }
+
+                            f = f.substring(ss_index + 1);
+                            ss_index = f.indexOf("*");
+                        }
+
+                        regex_str += f;
+                        if (regex_str !== "") {
+                            gCommentFilterRegExps.push(new RegExp(regex_str, "i"));
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function setupWordCensor() {
+    chrome.storage.local.get(["wordCensorEnabled", "wordCensor"], function(items) {
+        var error = chrome.runtime.lastError;
+        if (error) {
+            console.log("Error:", error);
+        }
+        else {
+            gWordCensorEnabled = items.wordCensorEnabled;
+            if (gWordCensorEnabled) {
+                gCensoredWords = [];
+                var words = item.wordCensor.split("\n");
+                for (var i=0; i<words.length; ++i) {
+                    gCensoredWords.push(words[i].toLowerCase());
+                }
+            }
+        }
+    });
 }
 
 function onDiscussionObserverTimeout(e) {
@@ -101,12 +170,12 @@ function discussionObserverCallback(mutation) {
 
 function processComments() {
     var comment_elements = Array.prototype.slice.call(gDiscussionElement.querySelectorAll(gSelectors.COMMENT), gCurrentCommentIndex);
-    var text_element = void 0;
-    var text = void 0;
+    var element = void 0;
+    var comment = void 0;
     for(var i=0; i<comment_elements.length; ++i) {
-        text_element = comment_elements[i].querySelector(gSelectors.COMMENT_TEXT);
-        if (text_element) {
-            text = text_element.innerText;
+        element = comment_elements[i].querySelector(gSelectors.COMMENT_TEXT);
+        if (element) {
+            comment = element.innerHTML;
         }
     }
 }
