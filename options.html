@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="options.css">
+        <script type="text/javascript" src="options.js"></script>
+    </head>
+    <body>
+        <form>
+            <div>
+                <input id="chk-hide-filtered-comments" type="checkbox" data-setting="hideFilteredComments">
+                <label for="chk-hide-filtered-comments">Hide filtered comments</label>
+            </div>
+
+            <div id="comment-filter-controls" class="filter-controls">
+                <label for="txt-comment-filter">Comment Filter</label>
+                <textarea id="txt-comment-filter" data-setting="commentFilter" cols="45" rows="8"></textarea>
+                <button id="btn-reset-comment-filter">Reset</button>
+            </div>
+
+            <div class="filter-controls">
+                <label for="txt-word-censor">Word Censor</label>
+                <textarea id="txt-word-censor" data-setting="wordCensor" cols="45" rows="8"></textarea>
+                <button id="btn-reset-word-censor">Reset</button>
+            </div>
+        </form>
+    </body>
+</html>
