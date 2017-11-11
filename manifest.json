@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Youtube Comment Filter",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "js": ["content_scripts/yt_comment_filter.js"]
+        }
+    ],
+    "options_ui": {
+        "page": "options.html"
+    },
+    "permissions": ["storage"]
+}
