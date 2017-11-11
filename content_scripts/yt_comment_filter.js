@@ -11,19 +11,19 @@ var NODE_PROPAGATION_WAIT_PERIOD = 400;
 
 var DesktopSelectors = {
     COMMENT: "section.comment-thread-renderer",
-    COMMENT_TEXT: "div.comment-renderer > div.comment-renderer-content > div.comment-renderer-text-content",
+    COMMENT_TEXT: "div.comment-renderer > div.comment-renderer-content > div.comment-renderer-text > div.comment-renderer-text-content",
     REPLY: "section.comment-thread-renderer > div.comment-replies-renderer",
-    REPLY_TEXT: "div.comment-renderer > div.comment-renderer-content > div.comment-renderer-text-content",
+    REPLY_TEXT: "div.comment-renderer > div.comment-renderer-content > div.comment-renderer-text > div.comment-renderer-text-content",
     UNLOADED_DISCUSSION: "div#watch-discussion",
     LOADED_DISCUSSION: "div#comment-section-renderer-items",
     UNEXPANDED_REPLIES: "div.comment-replies-renderer .yt-uix-expander-body.comment-replies-renderer-pages"
 };
 
 var MobileSelectors = {
-    COMMENT: "div.koya-komponent-binding",
-    COMMENT_TEXT: "div._mldc div._mdec > span._mzgc > span",
-    REPLY: "div._mwdc",
-    REPLY_TEXT: "div._mdec > span._mzgc > span",
+    COMMENT: "div.koya-komponent-binding:first-child",
+    COMMENT_TEXT: "div._mldc div._mdec > span._mzgc",
+    REPLY: "div._mwdc > div.koya-komponent-binding",
+    REPLY_TEXT: "div._mdec > span._mzgc",
     UNLOADED_DISCUSSION: "div._midc._mgnb._mfnb",
     LOADED_DISCUSSION: "div._midc._mgnb._mfnb",     // Parent of this
     UNEXPANDED_REPLIES: "div._mkdc > div.koya-komponent-binding"
@@ -101,7 +101,13 @@ function discussionObserverCallback(mutation) {
 
 function processComments() {
     var comment_elements = Array.prototype.slice.call(gDiscussionElement.querySelectorAll(gSelectors.COMMENT), gCurrentCommentIndex);
+    var text_element = void 0;
+    var text = void 0;
     for(var i=0; i<comment_elements.length; ++i) {
+        text_element = comment_elements[i].querySelector(gSelectors.COMMENT_TEXT);
+        if (text_element) {
+            text = text_element.innerText;
+        }
     }
 }
 
