@@ -140,6 +140,7 @@ function setupWordCensor() {
                     gWordCensorRegExps.push(regex);
                 }
             }
+            console.log(gWordCensorRegExps);
         }
     });
 }

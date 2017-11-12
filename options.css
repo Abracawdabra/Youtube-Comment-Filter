@@ -1,12 +1,16 @@
 .filter-controls
 {
-    display: inline-block;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .filter-controls > textarea
 {
     display: block;
+}
+
+.info
+{
+    max-width: 500px;
 }
 
 #comment-filter-controls

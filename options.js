@@ -22,7 +22,9 @@
             "/^darude\\s?(?:-|–)\\s?sandstorm$/",
             "lol",
             "/.*check(?:ing)? out my channel.*/",
-            "/.*giv(?:e|ing) my music a listen.*/"
+            "/.*giv(?:e|ing) my music a listen.*/",
+            "/^(?:2k|20)\\d{2}(?: anyone)?(?:\\?)*$/",
+            "/^who(?:'s|’s|se| is| else is) (?:listening|watching)(?: in)? (?:(?:january|february|march|april|may|june|july|august|september|october|november|december) )?(?:\\d{1,2}(?:st|nd|rd|th)? )?\\d{4}.*$/"
         ].join("\n"),
 
         WORD_CENSOR: [
@@ -40,7 +42,7 @@
             "cunt",
             "damn",
             "dick",
-            "dickhead",,
+            "dickhead",
             "dicksucker",
             "fuck",
             "fucker",
