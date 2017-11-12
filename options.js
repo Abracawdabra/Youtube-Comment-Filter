@@ -15,10 +15,53 @@
         WORD_CENSOR_ENABLED: false,
 
         COMMENT_FILTER: [
-            "*sent me here*"
+            "/.*(?:sent|brought) me here.*/",
+            "here because of*",
+            "/^first(?:\\.|!)?$/",
+            "/^.*(?:watching|listening(?: to)?) this in \\d{4}(?:\\.|!)*$/",
+            "/^darude\\s?(?:-|–)\\s?sandstorm$/",
+            "lol",
+            "/.*check(?:ing)? out my channel.*/",
+            "/.*giv(?:e|ing) my music a listen.*/"
         ].join("\n"),
 
         WORD_CENSOR: [
+            "arse",
+            "arsehole",
+            "arselicker",
+            "ass",
+            "asshole",
+            "asswipe",
+            "bitch",
+            "bastard",
+            "bullshit",
+            "cock",
+            "cocksucker",
+            "cunt",
+            "damn",
+            "dick",
+            "dickhead",,
+            "dicksucker",
+            "fuck",
+            "fucker",
+            "fucking",
+            "goddamn",
+            "goddamnit",
+            "horseshit",
+            "jackass",
+            "motherfucker",
+            "motherfucking",
+            "prick",
+            "shit",
+            "shitass",
+            "shithead",
+            "shitting",
+            "tit",
+            "tits",
+            "wanker",
+            "whore",
+            "whoring",
+            "twat"
         ].join("\n")
     }
 

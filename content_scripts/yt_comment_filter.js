@@ -111,7 +111,7 @@ function setupCommentFilter() {
 
                         regex_str += f;
                         if (regex_str !== "") {
-                            gCommentFilterRegExps.push(new RegExp(regex_str, "i"));
+                            gCommentFilterRegExps.push(new RegExp("^" + regex_str + "$", "i"));
                         }
                     }
                 }
@@ -135,7 +135,7 @@ function setupWordCensor() {
                 var words = items.wordCensor.split("\n");
                 var regex = void 0;
                 for (var i=0; i<words.length; ++i) {
-                    regex = new RegExp("\\b" + words[i] + "\\b", "ig");
+                    regex = new RegExp("\\b" + words[i].replace("<", "&lt;").replace(">", "&gt;") + "\\b", "ig");
                     regex.word = words[i];
                     gWordCensorRegExps.push(regex);
                 }
