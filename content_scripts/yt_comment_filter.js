@@ -7,7 +7,7 @@
 "use strict";
 
 // How long to wait for node propagation to finish in milliseconds
-var NODE_PROPAGATION_WAIT_PERIOD = 400;
+var NODE_PROPAGATION_WAIT_PERIOD = 650;
 
 var DesktopSelectors = {
     COMMENT: "section.comment-thread-renderer",
@@ -146,7 +146,8 @@ function setupWordCensor() {
 
 function discussionObserverCallback(mutation) {
     for (var i=0; i<mutation.length; ++i) {
-        if (mutation[i].addedNodes.length > 0) {
+        if (mutation[i].addedNodes.length > 0 && ((gDeviceType === "mobile" && mutation[i].addedNodes[0].children.length !== 3) || gDeviceType === "desktop")) {
+            // Only run with an appropiate mutation record. Ignore some useless one that occurs on mobile.
             setTimeout(onDiscussionObserverTimeout, NODE_PROPAGATION_WAIT_PERIOD);
             break;
         }
@@ -261,4 +262,4 @@ function processComments(elements, text_selector) {
     }
 }
 
-init();
+setTimeout(init, NODE_PROPAGATION_WAIT_PERIOD);
