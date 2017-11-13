@@ -8,6 +8,11 @@
     "icons": {
         "48": "icon-48.png"
     },
+    "applications": {
+        "gecko": {
+            "id": "youtubecommentfilter@addon.tld"
+        }
+    },
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/*"]
