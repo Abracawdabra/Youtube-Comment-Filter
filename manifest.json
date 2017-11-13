@@ -1,6 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Youtube Comment Filter",
+    "author": "Cawdabra",
+    "homepage_url": "https://github.com/Abracawdabra/Youtube-Comment-Filter",
     "description": "Comment filter or word censor for Youtube comments.",
     "version": "1.0",
     "icons": {
