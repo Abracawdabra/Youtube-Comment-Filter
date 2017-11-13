@@ -3,6 +3,9 @@
     "name": "Youtube Comment Filter",
     "description": "Comment filter or word censor for Youtube comments.",
     "version": "1.0",
+    "icons": {
+        "48": "icon-48.png"
+    },
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/*"]
